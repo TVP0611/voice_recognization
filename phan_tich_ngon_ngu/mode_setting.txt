@@ -1,0 +1,9 @@
+đổi tên
+đặt lịch
+nhắc nhở
+nhắc báo
+hẹn giờ
+nhắc
+hẹn
+xóa
+delete

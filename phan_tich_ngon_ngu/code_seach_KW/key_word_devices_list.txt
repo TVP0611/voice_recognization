@@ -1,0 +1,14 @@
+1:phòng khách:RE4|1
+2:phòng ngủ lớn:RE4|2
+3:phòng ngủ nhỏ:RE3|1
+4:vệ sinh tầng trệt:RE4|3
+5:vệ sinh lầu 1:RE2|1
+6:vệ sinh lầu 2:RE2|2
+7:sân thượng:RE4|4
+8:phòng bếp:RE4|5
+9:sân vườn:RE3|2
+10:áp mái:RE3|3
+11:rèm cửa phòng khách:DC|1|1
+12:rèm cửa phòng ngủ lớn:DC|2|1
+13:rèm cửa phòng ngủ nhỏ:DC|3|1
+14:cửa cuốn:DC|4|1

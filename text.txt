@@ -1,0 +1,2 @@
+phòng khách:12
+phòng bếp:13

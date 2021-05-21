@@ -1,0 +1,4 @@
+phòng khách:RE4-11
+phòng ngủ:DC-1
+phòng bếp:RE4-12
+sân vườn:RE4-13

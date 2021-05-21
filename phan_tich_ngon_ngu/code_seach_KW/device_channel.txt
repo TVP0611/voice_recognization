@@ -1,0 +1,16 @@
+đèn tranh:1:1
+đèn trần:2:1
+đèn chùm:3:1
+quạt đứng:4:1
+quạt hút:1:8
+lò nướng:2:8
+đèn bếp:3:8
+đèn bàn ăn:4:8
+van tưới 1:1:9
+van tưới 2:2:9
+đèn sân vườn:3:9
+đèn sân thượng:1:7
+van tưới 1:2:7
+van tưới 2:3:7
+đèn áp mái:1:10
+đèn bàn:2:10

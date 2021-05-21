@@ -1,0 +1,6 @@
+mở nhạc
+bật nhạc
+chơi nhạc
+tắt nhạc
+mở nhạc
+dừng nhạc

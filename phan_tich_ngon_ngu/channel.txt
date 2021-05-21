@@ -1,0 +1,5 @@
+đèn chùm:1
+đèn tranh:2
+quạt trần:3
+quạt hút:4
+rèm cửa:1

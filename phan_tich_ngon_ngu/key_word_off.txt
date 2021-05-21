@@ -1,0 +1,5 @@
+off
+tắt
+đóng
+ngừng
+dừng
