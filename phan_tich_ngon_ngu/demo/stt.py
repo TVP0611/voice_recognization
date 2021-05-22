@@ -20,6 +20,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from time import strftime
 from gtts import gTTS
 from youtube_search import YoutubeSearch
+import vlc
+import pafy
 
 room_master = 'Phúc'
 name_butler = 'phúc'
@@ -71,9 +73,42 @@ def get_text():
             return text.lower()
         elif i < 2:
             speak("Bot không nghe rõ. Bạn nói lại được không!")
-    time.sleep(2)
+    time.sleep(1)
     stop()
     return 0
+
+def play_song():
+    speak('Xin mời bạn chọn tên bài hát')
+    mysong = get_text()
+    while True:
+        result = YoutubeSearch(mysong, max_results=10).to_dict()
+        if result:
+            break
+    ############### sẽ có if result = None trả lời tôi không kiếm đc
+    url = 'https://www.youtube.com' + result[0]['url_suffix']
+    # webbrowser.open(url)
+    speak("Bài hát bạn yêu cầu đã được mở.")
+    video = pafy.new(url)
+    best = video.getbestaudio()
+    playurl = best.url
+    ins = vlc.Instance()
+    player = ins.media_player_new()
+    code = urllib.request.urlopen(url).getcode()
+    if str(code).startswith('2') or str(code).startswith('3'):
+        print('Stream is working')
+    else:
+        print('Stream is dead')
+    Media = ins.media_new(playurl)
+    Media.get_mrl()
+    player.set_media(Media)
+    player.play()
+    # good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
+    # while str(player.get_state()) in good_states:
+    #     print('Stream is working. Current state = {}'.format(player.get_state()))
+
+    # print('Stream is not working. Current state = {}'.format(player.get_state()))
+    player.stop()
+    
 
 def current_weather():
     speak("Bạn muốn xem thời tiết ở đâu ạ.")
@@ -111,6 +146,7 @@ def current_weather():
     else:
         speak("Không tìm thấy địa chỉ của bạn")
 
+
 text = get_text()
 if name_butler in str(text):
     ### phản hồi khi gọi tên
@@ -119,3 +155,5 @@ if name_butler in str(text):
     action_sentence = get_audio()
     if "thời tiết" in action_sentence:
         current_weather()
+    elif "chơi nhạc" in action_sentence:
+        play_song()

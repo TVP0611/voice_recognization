@@ -82,3 +82,81 @@
 # text = 'bật đèn chùm phòng khách'
 # t1 = text.split('đèn chùm')
 # print(t1)
+
+
+# import threading
+# import time
+  
+# def run():
+#     while True:
+#         print('thread running')
+#         global stop_threads
+#         if stop_threads:
+#             break
+  
+# stop_threads = False
+# t1 = threading.Thread(target = run)
+# t1.start()
+# time.sleep(1)
+# stop_threads = True
+# t1.join()
+# print('thread killed')
+
+import threading
+from threading import Condition
+import time
+
+def f(stop_event, event_obj):
+    while True:
+        # flag = condition_obj.acquire()
+        # flag = event_obj.clear
+        # flag = event_obj.is_set()
+        if event_obj.is_set():
+            # condition_obj.wait_for(flag, 5)
+            print('thread await')
+            time.sleep(5)
+            print('end wait')
+            # flag = False
+            event_obj.clear()
+            
+            
+        if stop_event.is_set():
+            print ("Thread has been interrupted by an event.")
+            return
+        print ("Executing.")
+        
+        # time.sleep(0.25)
+
+event_obj = threading.Event()
+# condition_obj = threading.Condition()
+stop_event = threading.Event()
+
+t = threading.Thread(target=f, args=(stop_event, event_obj, ), daemon= True)
+t.start()
+while 1:
+    sentences = input('>>')
+    if sentences == 'stop':
+        # time.sleep(2.0)
+        stop_event.set()
+        break
+    elif sentences == 'pause':
+        event_obj.set()
+        
+        # condition_obj.acquire()
+        # condition_obj.notify()
+
+# import threading
+
+# done_counting = threading.Event()
+# def count(done_counting):
+#     i=0
+#     while True:
+#         i += 1
+#         print (i)
+#         done_counting.set()
+    
+# thread = threading.Thread(target=count, args=(done_counting, ))
+# thread.start()
+# print ("This may print before the event is set")
+# done_counting.wait(5)
+# print ("This will always print after the event is set")
