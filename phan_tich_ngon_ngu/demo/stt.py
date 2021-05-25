@@ -24,7 +24,7 @@ import vlc
 import pafy
 
 room_master = 'Phúc'
-name_butler = 'phúc'
+name_butler = 'mimi'
 wikipedia.set_lang('vi')
 language = 'vi'
 path = ChromeDriverManager().install()
@@ -81,7 +81,7 @@ def play_song():
     speak('Xin mời bạn chọn tên bài hát')
     mysong = get_text()
     while True:
-        result = YoutubeSearch(mysong, max_results=10).to_dict()
+        result = YoutubeSearch(mysong, max_results=5).to_dict()
         if result:
             break
     ############### sẽ có if result = None trả lời tôi không kiếm đc
@@ -102,14 +102,15 @@ def play_song():
     Media.get_mrl()
     player.set_media(Media)
     player.play()
-    # good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
-    # while str(player.get_state()) in good_states:
-    #     print('Stream is working. Current state = {}'.format(player.get_state()))
+    good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
+    while str(player.get_state()) in good_states:
+        print('Stream is working. Current state = {}'.format(player.get_state()))
 
-    # print('Stream is not working. Current state = {}'.format(player.get_state()))
+    print('Stream is not working. Current state = {}'.format(player.get_state()))
+    # while 1:
+    #     player.get_state()
     player.stop()
     
-
 def current_weather():
     speak("Bạn muốn xem thời tiết ở đâu ạ.")
     ow_url = "http://api.openweathermap.org/data/2.5/weather?"
@@ -138,8 +139,7 @@ def current_weather():
         Nhiệt độ trung bình là {temp} độ C
         Áp suất không khí là {pressure} héc tơ Pascal
         Độ ẩm là {humidity}%
-        Trời hôm nay quang mây. Dự báo mưa rải rác ở một số nơi.""".format(day = now.day,month = now.month, year= now.year, hourrise = sunrise.hour, minrise = sunrise.minute,
-                                                                           hourset = sunset.hour, minset = sunset.minute, 
+        Trời hôm nay quang mây. Dự báo mưa rải rác ở một số nơi.""".format(day = now.day,month = now.month, year= now.year, hourrise = sunrise.hour, minrise = sunrise.minute,                                                              hourset = sunset.hour, minset = sunset.minute, 
                                                                            temp = current_temperature, pressure = current_pressure, humidity = current_humidity)
         speak(content)
         time.sleep(20)
@@ -147,13 +147,20 @@ def current_weather():
         speak("Không tìm thấy địa chỉ của bạn")
 
 
-text = get_text()
-if name_butler in str(text):
-    ### phản hồi khi gọi tên
-    speak("Dạ vâng có tôi đây") #### chạy random trong file
-    speak("Bạn cần tôi giúp gì?")
-    action_sentence = get_audio()
-    if "thời tiết" in action_sentence:
-        current_weather()
-    elif "chơi nhạc" in action_sentence:
-        play_song()
+while True:
+    speak("chào bạn")
+    text = get_text()
+    if name_butler in str(text):
+        ### phản hồi khi gọi tên
+        speak("Ai kêu Mi á có Mi đây") #### chạy random trong file
+        speak("Bạn cần Mi giúp gì?")
+        action_sentence = get_text()
+        if "thời tiết" in action_sentence:
+            current_weather()
+        elif "mở nhạc" in action_sentence:
+            play_song()
+        elif "tạm biệt" in action_sentence:
+            stop()
+        else: pass
+
+

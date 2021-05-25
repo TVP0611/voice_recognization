@@ -102,6 +102,7 @@
 # t1.join()
 # print('thread killed')
 
+
 import threading
 from threading import Condition
 import time
@@ -110,7 +111,7 @@ def f(stop_event, event_obj):
     while True:
         # flag = condition_obj.acquire()
         # flag = event_obj.clear
-        # flag = event_obj.is_set()
+        flag = stop_event.is_set()
         if event_obj.is_set():
             # condition_obj.wait_for(flag, 5)
             print('thread await')

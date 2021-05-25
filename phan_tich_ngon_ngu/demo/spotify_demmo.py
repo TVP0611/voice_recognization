@@ -11,8 +11,8 @@ import threading
 import time
 import sys
 
-def music(stop_event, event_obj, ):
-    url = "https://www.youtube.com/watch?v=rcjWS_E8N2A&list=RDWpegaj6nnI0&index=4"
+def music(stop_event, event_obj ):
+    url = "https://www.youtube.com/watch?v=ZXddoGmHXw8"
     video = pafy.new(url)
     best = video.getbestaudio()
     playurl = best.url
@@ -30,7 +30,8 @@ def music(stop_event, event_obj, ):
     Media.get_mrl()
     player.set_media(Media)
     player.play()
-    while 1:
+    good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
+    while str(player.get_state()) in good_states:
         player.get_state()
         if event_obj.is_set():
             player.pause()
