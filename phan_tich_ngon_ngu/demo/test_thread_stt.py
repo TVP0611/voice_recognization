@@ -46,11 +46,15 @@ def speak_feedback(text):
     tts = gTTS(text=text, lang=language, slow=False)
     tts.save("sound1.mp3")
     player = vlc.MediaPlayer("sound1.mp3")
-    player.play()
-    good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
-    while str(player.get_state()) in good_states:
-        pass
-    player.stop()
+    # player.play()
+    # good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
+    # while str(player.get_state()) in good_states:
+    #     # time.sleep(6)
+    #     # print("done")
+    #     # pass
+    playsound("sound1.mp3", False)
+    time.sleep(3)
+    # player.stop()
     os.remove("sound1.mp3")
 
 def speak_thread(text, stop_event):
@@ -205,7 +209,8 @@ def assistant():
     action_sentence = get_text()
     if "thời tiết" in action_sentence:
         threading.Thread(name="weather", target= current_weather, args=(stop_event, ), daemon= True).start()
-        
+    elif "chào" in action_sentence:
+        hello(room_master)
     elif "mở nhạc" in action_sentence:
         threading.Thread(name="music", target= play_song, args=(stop_event, ), daemon= True).start()
     else: pass
@@ -214,7 +219,7 @@ def wake_word():
     text =  get_text()  #input(">> ")     get_text()
     if name_butler in text:
         for t in threading.enumerate():
-            print(t)
+            # print(t)
             if t.getName() == "weather":
                 stop_event.set()
             elif t.getName() == "music":
