@@ -92,6 +92,7 @@ def story(stop_event):
     # playsound("sound.mp3", False)
     # time.sleep(5)
     # os.remove("sound.mp3")
+
     player = vlc.MediaPlayer("sound.mp3")
     player.play()
     time.sleep(2)
@@ -106,72 +107,77 @@ def story(stop_event):
             # player.stop()
             sys.exit()
             
-    # player.stop()
+    player.stop()
    
 def assistant():
     action = input('action: ')
     if "kể chuyện" in action:
-        t_story = Process(target=story)    
         t_story.start()
+        # t_story = Process(target=story)    
+        # t_story.start()
     else: pass
 
 def wake_word():
     # global stop, player
     while True:
-        text = input(">> ")
+        
+        text =  input(">> ")  #input(">> ")     get_text()
         if name_butler in text:
-            t_story = threading.Thread(target=story, args=(stop_event, ), daemon= True) 
-            t = t_story.is_alive()#### check lại
-            print(t)
-            if t_story.is_live():
-                # stop = True
-                # player.vlm_stop_media()
-                stop_event.set()
-                # flag = stop_event.is_set
-                # if flag == True:
-                    # if os.path.isfile('sound.mp3'):
-                    # player.stop()
-                    # os.remove("sound.mp3")
-                    # stop_event.clear()
-                    # player.stop()
-                    # sys.exit()
-            t
+             
+            # t = threading.enumerate()#### check lại
+            for t in threading.enumerate():
+                if t.getName() == "story":
+                    # stop = True
+                    # player.vlm_stop_media()
+                    stop_event.set()
+                    # flag = stop_event.is_set
+                    # if flag == True:
+                        # if os.path.isfile('sound.mp3'):
+                        # player.stop()
+                        # os.remove("sound.mp3")
+                        # stop_event.clear()
+                        # player.stop()
+                        # sys.exit()
             speak_feedback("dạ vâng có em đây")
-            # assistant()
-            action = input('action: ')
-            if "kể chuyện" in action:
-                t_story.start()
-            else: pass
+            assistant()
+            # action = input('action: ')     #input('action: ')   get_text()
+            # if "kể chuyện" in action:
+            #     t_story.start()
+            # else:
+            #     pass
+        else:
+            pass
         
    
 # wake_up = threading.Thread(name='wake', target=wake_word)
 # wake_up.start()
 while True:
-    # wake_word()
+    t_story = threading.Thread(name="story", target=story, args=(stop_event, ), daemon=True)
+    wake_word()
     #  while True:
-    text = get_text()   #input(">> ")
-    if name_butler in text:
-        t_story = threading.Thread(name="story", target=story, args=(stop_event, ), daemon=True) 
-        # t = threading.enumerate()#### check lại
-        for t in threading.enumerate():
-            if t.getName() == "story":
-                # stop = True
-                # player.vlm_stop_media()
-                stop_event.set()
-                # flag = stop_event.is_set
-                # if flag == True:
-                    # if os.path.isfile('sound.mp3'):
-                    # player.stop()
-                    # os.remove("sound.mp3")
-                    # stop_event.clear()
-                    # player.stop()
-                    # sys.exit()
-        speak_feedback("dạ vâng có em đây")
-        # assistant()
-        action = get_text()     #input('action: ')
-        if "kể chuyện" in action:
-            t_story.start()
-        else:
-            pass
-    else:
-        pass
+    # text =  input(">> ")  #input(">> ")     get_text()
+    # if name_butler in text:
+    #     t_story = threading.Thread(name="story", target=story, args=(stop_event, ), daemon=True) 
+    #     # t = threading.enumerate()#### check lại
+    #     for t in threading.enumerate():
+    #         if t.getName() == "story":
+    #             # stop = True
+    #             # player.vlm_stop_media()
+    #             stop_event.set()
+    #             # flag = stop_event.is_set
+    #             # if flag == True:
+    #                 # if os.path.isfile('sound.mp3'):
+    #                 # player.stop()
+    #                 # os.remove("sound.mp3")
+    #                 # stop_event.clear()
+    #                 # player.stop()
+    #                 # sys.exit()
+    #     speak_feedback("dạ vâng có em đây")
+    #     # assistant()
+    #     action = input('action: ')     #input('action: ')   get_text()
+    #     if "kể chuyện" in action:
+    #         t_story.start()
+    #     else:
+    #         pass
+    # else:
+    #     pass
