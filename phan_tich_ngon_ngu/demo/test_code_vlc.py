@@ -15,7 +15,7 @@ stop_event = threading.Event()
 stop = False
 pause_event = threading.Event()
 words = []
-player = vlc.MediaPlayer("sound.mp3")
+
 
 def get_audio():
     r = sr.Recognizer()
@@ -36,9 +36,9 @@ def get_text():
         if text:
             return text.lower()
         else:
-            speak_feedback("Bot không nghe rõ. Bạn nói lại được không!")
+            speak_feedback("Mimi không nghe rõ. Bạn nói lại được không!")
             time.sleep(1)
-            return 0
+            return "0"
 
 def speak_feedback(text):
     print("Bot: {}".format(text))
@@ -75,7 +75,7 @@ def speak_feedback(text):
 #     #     os.remove("sound.mp3")
     
 
-def story():
+def story(stop_event):
     global stop, player
     # stop = stop_event.is_set()
     # pause = pause_event.is_set()
@@ -92,18 +92,19 @@ def story():
     # playsound("sound.mp3", False)
     # time.sleep(5)
     # os.remove("sound.mp3")
-    
+    player = vlc.MediaPlayer("sound.mp3")
     player.play()
-    # good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
-    # while str(player.get_state()) in good_states:
-    #     print(str(player.get_state()))
-    #     if stop == True:
-    #         # if os.path.isfile('sound.mp3'):
-    #         player.stop()
-    #         # os.remove("sound.mp3")
-    #         # stop_event.clear()
-    #         # player.stop()
-    #         sys.exit()
+    time.sleep(2)
+    good_states = ["State.Playing", "State.NothingSpecial", "State.Opening"]
+    while str(player.get_state()) in good_states:
+        # print(str(stop_event.is_set()))
+        if stop_event.is_set():
+            # if os.path.isfile('sound.mp3'):
+            player.stop()
+            # os.remove("sound.mp3")
+            stop_event.clear()
+            # player.stop()
+            sys.exit()
             
     # player.stop()
    
@@ -115,15 +116,17 @@ def assistant():
     else: pass
 
 def wake_word():
-    global stop, player
+    # global stop, player
     while True:
         text = input(">> ")
         if name_butler in text:
-            t_story = threading.Thread(target=story)#, args=(stop_event, )) 
-            if t_story.is_alive():
+            t_story = threading.Thread(target=story, args=(stop_event, ), daemon= True) 
+            t = t_story.is_alive()#### check lại
+            print(t)
+            if t_story.is_live():
                 # stop = True
-                player.vlm_stop_media()
-                # stop_event.set()
+                # player.vlm_stop_media()
+                stop_event.set()
                 # flag = stop_event.is_set
                 # if flag == True:
                     # if os.path.isfile('sound.mp3'):
@@ -132,6 +135,7 @@ def wake_word():
                     # stop_event.clear()
                     # player.stop()
                     # sys.exit()
+            t
             speak_feedback("dạ vâng có em đây")
             # assistant()
             action = input('action: ')
@@ -140,7 +144,34 @@ def wake_word():
             else: pass
         
    
-wake_up = threading.Thread(name='wake', target=wake_word)
-wake_up.start()
-# while True:
-    # t_story = Process(target=story)   
+# wake_up = threading.Thread(name='wake', target=wake_word)
+# wake_up.start()
+while True:
+    # wake_word()
+    #  while True:
+    text = get_text()   #input(">> ")
+    if name_butler in text:
+        t_story = threading.Thread(name="story", target=story, args=(stop_event, ), daemon=True) 
+        # t = threading.enumerate()#### check lại
+        for t in threading.enumerate():
+            if t.getName() == "story":
+                # stop = True
+                # player.vlm_stop_media()
+                stop_event.set()
+                # flag = stop_event.is_set
+                # if flag == True:
+                    # if os.path.isfile('sound.mp3'):
+                    # player.stop()
+                    # os.remove("sound.mp3")
+                    # stop_event.clear()
+                    # player.stop()
+                    # sys.exit()
+        speak_feedback("dạ vâng có em đây")
+        # assistant()
+        action = get_text()     #input('action: ')
+        if "kể chuyện" in action:
+            t_story.start()
+        else:
+            pass
+    else:
+        pass
