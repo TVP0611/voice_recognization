@@ -10,20 +10,20 @@ from colorama import Fore, Style, Back
 import random
 import pickle
 
-with open("intents.json") as file:
+with open('D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/intents_viet.json', encoding="utf-8") as file:
     data = json.load(file)
 
 
 def chat():
     # load trained model
-    model = keras.models.load_model('chat_model')
+    model = keras.models.load_model("D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/chat_model_viet")
 
     # load tokenizer object
-    with open('tokenizer.pickle', 'rb') as handle:
+    with open('D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/tokenizer_viet.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
 
     # load label encoder object
-    with open('label_encoder.pickle', 'rb') as enc:
+    with open('D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/label_viet_encoder.pickle', 'rb') as enc:
         lbl_encoder = pickle.load(enc)
 
     # parameters
@@ -41,7 +41,7 @@ def chat():
 
         for i in data['intents']:
             if i['tag'] == tag:
-                print(Fore.GREEN + "ChatBot:" + Style.RESET_ALL , np.random.choice(i['responses']))
+                print(Fore.GREEN + "ChatBot:" + Style.RESET_ALL , tag) #np.random.choice(i['responses']))
 
         # print(Fore.GREEN + "ChatBot:" + Style.RESET_ALL,random.choice(responses))
 
