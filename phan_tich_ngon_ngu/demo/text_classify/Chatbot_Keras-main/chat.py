@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import json 
 import numpy as np
 from tensorflow import keras
@@ -16,7 +18,7 @@ with open('D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/
 
 def chat():
     # load trained model
-    model = keras.models.load_model("D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/chat_model_viet")
+    model = keras.models.load_model("D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/chat_model_viet.h5")
 
     # load tokenizer object
     with open('D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/tokenizer_viet.pickle', 'rb') as handle:
@@ -34,9 +36,13 @@ def chat():
         inp = input()
         if inp.lower() == "quit":
             break
+        
+        m = tokenizer.texts_to_sequences([inp])
 
-        result = model.predict(keras.preprocessing.sequence.pad_sequences(tokenizer.texts_to_sequences([inp]),
-                                             truncating='post', maxlen=max_len))
+        r = keras.preprocessing.sequence.pad_sequences(m,
+                                             truncating='post', maxlen=max_len)
+
+        result = model.predict(r)
         tag = lbl_encoder.inverse_transform([np.argmax(result)])
 
         for i in data['intents']:

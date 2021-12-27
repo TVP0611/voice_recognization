@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import json 
 import numpy as np 
 import tensorflow as tf
@@ -58,7 +60,7 @@ epochs = 550
 history = model.fit(padded_sequences, np.array(training_labels), epochs=epochs)
 
 # saving model
-model.save("D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/chat_model_viet")
+model.save("D:/Project/voice_recognization/phan_tich_ngon_ngu/demo/text_classify/Chatbot_Keras-main/chat_model_viet.h5")
 
 import pickle
 

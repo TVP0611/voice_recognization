@@ -1,4 +1,9 @@
 {"intents": [
+    {"tag": "remains",
+        "patterns": ["con chó", "mất dạy", "khốn nạn", "biến đi", "tào lao", "vứt đi", "tài chính", "kinh tế", "không liên quan", "một cái gì đó", "không hiểu",
+        "cút đi", "đi nha", "ai vậy", "đâu đấy", "vô nghĩa", "vô tâm", "ấbadfsvfs", "lalalalalala", "ha ha ha"],
+        "responses": ["Tôi không hiểu ý của bạn.", "mình chưa được dạy về vấn đề này"]
+    },
     {"tag": "greeting",
      "patterns": ["Hi", "Hey", "xin chào", "chào bạn", "quản gia ơi", "bạn ơi", "Hello", "Hay"],
      "responses": ["Hello", "Hi", "Chào bạn", "Chào homie", "lâu quá không gặp!"]
@@ -14,7 +19,8 @@
     {"tag": "control",
         "patterns": ["bật đèn phòng khách", "tắt đèn chùm phòng khách", "trời hôm nay nóng quá", "trời hôm nay lạnh quá", "tắt van nước sân vườn", "tôi muốn đi ngủ", "tôi buồn ngủ quá", 
                     "ngắt van nước", "đóng rèm phòng ngủ", "tôi cảm thấy nóng quá", "tôi cảm thấy lạnh quá", "mở tivi phòng ngủ", "nóng quá", "lạnh quá", "tối quá",
-                    "đóng tất cả thiết bị", "tắt tất cả thiết bị", "chuyển kênh tivi", "giảm nhiệt độ máy lạnh", "tăng nhiệt độ máy lạnh", "đi ngủ", "tiễn khách", "đón khách", "thực hiện nhữ cảnh ra ngoài", "chạy kịch bản tiễn khách", "mở kịch bản đón khách"],
+                    "đóng tất cả thiết bị", "tắt tất cả thiết bị", "chuyển kênh tivi", "giảm nhiệt độ máy lạnh", "tăng nhiệt độ máy lạnh", "đi ngủ", "tiễn khách", "đón khách", "thực hiện nhữ cảnh ra ngoài", 
+                    "chạy kịch bản tiễn khách", "mở kịch bản đón khách", "bật đèn", "mở đèn", "tắt đèn", "bật tivi", "mở tivi", "tắt tivi", "mở rèm", "đóng rèm"],
         "responses": ["Đã mở thiết bị {0}", "Ngữ cảnh {0} đã được thực hiện", "Thiết bị {0} đã được bật", "Đã tắt thiết bị {0}"]
     },
     {"tag": "media",
